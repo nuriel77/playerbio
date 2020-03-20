@@ -1,7 +1,7 @@
 # Default values for playerbio.
 
 # Note: Flux can override values
-# See playerbio-flux/base.yaml
+# See flux/base.yaml
 replicaCount: 1
 
 image:

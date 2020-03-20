@@ -8,6 +8,9 @@
      * [Build](#build)
      * [Run](#run)
      * [Docker Compose](#docker-compose)
+  * [GitOps](#gitops)
+     * [Helm](#helm)
+     * [Flux](#flux)
 <!--te-->
 
 # Overview
@@ -50,3 +53,31 @@ Stop:
 ```sh
 docker-compose down
 ```
+
+# GitOps
+
+## Helm
+
+A chart for helm can be found in [charts/playerbio](charts/playerbio)
+
+If you don't integrate with Flux, a manual installation via Helm is possible, e.g.:
+```sh
+helm upgrade --install --atomic --wait --timeout=360 --namespace=playerbio playerbio charts/playerbio
+```
+This command can be used both for installation and upgrade.
+
+Note that the values can be tweaked in `charts/playerbio/values.yaml`, for example the image name or number of **replicas**.
+
+I have set the replicas in `values.yaml` to allow for override via the `base.yaml` from flux, see [Flux](#flux) for more details.
+
+To completely destroy the release run:
+```sh
+helm delete --purge playerbio
+```
+
+## Flux
+
+I have added Flux's public ssh key to the repository `https://github.com/nuriel77/playerbio`. It watches the `master` branch and scans directories for `yaml` files.
+
+The binding between the helm chart and flux is done in the directory [flux/](flux/). The `base.yaml` file references the repository and chart's directory.
+

@@ -1,0 +1,76 @@
+{{- $root := . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "playerbio.fullname" . }}
+  labels:
+{{ include "playerbio.labels" . | indent 4 }}
+spec:
+  strategy:
+    type: {{ .Values.deploymentStrategy }}
+    rollingUpdate:
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "playerbio.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "playerbio.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "playerbio.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+        {{- range $name, $data := .Values.service.ports }}
+            - name: {{ $name }}
+          {{- with $data }}
+              containerPort: {{ .port }}
+              protocol: {{ .protocol }}
+          {{- end -}}
+        {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: {{ .Values.service.ports.api.port }}
+              failureThreshold: 3
+              timeoutSeconds: 3
+              initialDelaySeconds: 10
+              periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: {{ .Values.service.ports.api.port }}
+              failureThreshold: 3
+              timeoutSeconds: 3
+              initialDelaySeconds: 5
+              periodSeconds: 2
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

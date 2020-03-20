@@ -1,0 +1,15 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: playerbio
+  namespace: playerbio
+spec:
+  helmVersion: v2
+  releaseName: playerbio
+  chart:
+    git: git@github.com:nuriel77/playerbio.git
+    path: charts/playerbio/
+    ref: master
+  values:
+    replicas: 5

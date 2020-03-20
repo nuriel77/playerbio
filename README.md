@@ -79,5 +79,5 @@ helm delete --purge playerbio
 
 I have added Flux's public ssh key to the repository `https://github.com/nuriel77/playerbio`. It watches the `master` branch and scans directories for `yaml` files.
 
-The binding between the helm chart and flux is done in the directory [playerbio-flux/](playerbio-flux/). The `base.yaml` file references the repository and chart's directory.
+The binding between the helm chart and flux is done in the directory [flux/](flux/). The `base.yaml` file references the repository and chart's directory.
 

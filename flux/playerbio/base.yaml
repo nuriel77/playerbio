@@ -15,4 +15,4 @@ spec:
     replicas: 5
     image:
       repository: nuriel77/playerbio
-      tag: latest
+      tag: v0.1.0

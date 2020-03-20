@@ -1,0 +1,50 @@
+use Mix.Config
+
+# This configuration is loaded before any dependency and is restricted
+# to this project. If another project depends on this project, this
+# file won't be loaded nor affect the parent project. For this reason,
+# if you want to provide default values for your application for
+# third-party users, it should be done in your "mix.exs" file.
+
+# You can configure your application as:
+#
+#     config :player_bio, key: :value
+#
+# and access this configuration in your application as:
+#
+#     Application.get_env(:player_bio, :key)
+#
+# You can also configure a third-party app:
+#
+#     config :logger, level: :info
+#
+
+# It is also possible to import configuration files, relative to this
+# directory. For example, you can emulate configuration per environment
+# by uncommenting the line below and defining dev.exs, test.exs and such.
+# Configuration from the imported file will override the ones defined
+# here (which is why it is important to import them last).
+#
+#     import_config "#{Mix.env()}.exs"
+
+config :player_bio, port: 8080
+
+config :prometheus,
+  vm_system_info_collector_metrics: [
+    :ets_limit,
+    :logical_processors,
+    :logical_processors_available,
+    :logical_processors_online,
+    :port_count,
+    :port_limit,
+    :process_count,
+    :process_limit,
+    :schedulers,
+    :schedulers_online,
+    :smp_support,
+    :threads,
+    :thread_pool_size,
+    :time_correction,
+    :atom_count,
+    :atom_limit
+  ]

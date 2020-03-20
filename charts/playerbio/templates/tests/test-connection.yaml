@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "playerbio.fullname" . }}-test-connection"
+  labels:
+{{ include "playerbio.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "playerbio.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

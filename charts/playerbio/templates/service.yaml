@@ -1,0 +1,26 @@
+{{- $root := . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "playerbio.fullname" . }}
+  labels:
+{{ include "playerbio.labels" . | indent 4 }}
+spec:
+{{- if .Values.externalTrafficPolicy }}
+  externalTrafficPolicy: "Local"
+{{- end }}
+  type: {{ .Values.service.type }}
+  ports:
+{{- range $name, $data := .Values.service.ports }}
+    - name: {{ $name }}
+  {{- with $data }}
+      port: {{ .port }}
+    {{- if .nodePort }}
+      nodePort: {{ .nodePort }}
+    {{- end }}
+      protocol: {{ .protocol }}
+  {{- end -}}
+{{ end }}
+  selector:
+    app.kubernetes.io/name: {{ include "playerbio.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

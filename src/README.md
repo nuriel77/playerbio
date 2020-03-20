@@ -57,7 +57,7 @@ pong!
 Generates the profile of an imaginary sports player.
 
 ```bash
-curl -v http://localhost:8080/ping
+curl -v http://localhost:8080/player
 
 *   Trying 127.0.0.1...
 * TCP_NODELAY set

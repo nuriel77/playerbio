@@ -21,7 +21,7 @@ RUN make deps compile && mix release
 # ---[ runtime image ]---
 FROM elixir:1.9.4-alpine AS runtime
 
-LABEL org.label-schema.description="Player BIO Application"
+LABEL org.label-schema.description="PlayerBio Application"
 
 ARG TARGET_ENV=prod
 ENV MIX_ENV=${TARGET_ENV:+-$TARGET_ENV} \

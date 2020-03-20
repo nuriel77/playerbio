@@ -21,9 +21,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build HORNET Docker image
-        run: docker build . --file src/Dockerfile --build-arg TARGET_ENV=prod --tag playerbio:latest
+        run: 'cd src/ && docker build . --file Dockerfile --build-arg TARGET_ENV=prod --tag playerbio:latest'
         timeout-minutes: 300
 
       - name: Test HORNET Docker image
-        run: docker run --rm --name testing playerbio:latest /app/bin/player_bio version 2>/dev/null | grep -q "player_bio"
+        run: 'docker run --rm --name testing playerbio:latest /app/bin/player_bio version 2>/dev/null | grep -q "player_bio"'
         timeout-minutes: 1

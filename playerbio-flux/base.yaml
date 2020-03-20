@@ -13,3 +13,5 @@ spec:
     ref: master
   values:
     replicas: 5
+    image:
+      repository: nuriel77/playerbio:latest

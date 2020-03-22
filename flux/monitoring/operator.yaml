@@ -5,15 +5,11 @@ metadata:
   name: prometheus-operator
   namespace: monitoring
 spec:
-  helmVersion: v3
+  helmVersion: v2
   releaseName: prometheus-operator
-  #chart:
-  #  repository: https://kubernetes-charts.storage.googleapis.com/
-  #  name: prometheus-operator
-  #  version: 8.12.2
   chart:
-    git: https://github.com/helm
-    path: charts/stable/prometheus-operator
+    git: https://github.com/helm/charts.git
+    path: stable/prometheus-operator
     ref: master
   values:
     defaultRules:

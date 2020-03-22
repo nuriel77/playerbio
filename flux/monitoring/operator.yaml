@@ -29,7 +29,7 @@ spec:
       enabled: false
 
     kubelet:
-      enabled: enable
+      enabled: false
       serviceMonitor:
         https: false
 

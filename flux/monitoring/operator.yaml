@@ -7,7 +7,7 @@ metadata:
   annotations:
     fluxcd.io/automated: 'true'
 spec:
-  helmVersion: v2
+  helmVersion: v3
   releaseName: prometheus-operator
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/

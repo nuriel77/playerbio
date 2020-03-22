@@ -20,6 +20,7 @@ spec:
         etcd: false
         general: false
         kubeScheduler: false
+        node: true
 
     kubeEtcd:
       enabled: false
@@ -27,7 +28,6 @@ spec:
       enabled: false
     kubeScheduler:
       enabled: false
-
     kubelet:
       enabled: true
       serviceMonitor:

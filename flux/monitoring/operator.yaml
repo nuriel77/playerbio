@@ -5,7 +5,7 @@ metadata:
   name: prometheus-operator
   namespace: monitoring
 spec:
-  helmVersion: v3
+  helmVersion: v2
   releaseName: prometheus-operator
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
@@ -27,7 +27,7 @@ spec:
       enabled: false
 
     kubelet:
-      enabled: false
+      enabled: enable
       serviceMonitor:
         https: false
 

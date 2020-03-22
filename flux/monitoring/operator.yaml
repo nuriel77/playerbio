@@ -41,14 +41,14 @@ spec:
     prometheus:
       prometheusSpec:
         image:
-          tag: v2.17.0-rc.4
+          tag: v2.16.0
         replicas: 1
         resources:
           limits:
-            cpu: 400m
+            cpu: 500m
             memory: 1Gi
           requests:
-            cpu: 400m
+            cpu: 500m
             memory: 1Gi
         ruleNamespaceSelector: {}
         serviceMonitorNamespaceSelector:

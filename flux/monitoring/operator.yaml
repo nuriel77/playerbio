@@ -26,6 +26,12 @@ spec:
     kubeScheduler:
       enabled: false
 
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        scheme: http
+        port: http-metrics
+
     prometheusOperator:
       admissionWebhooks:
         enabled: false

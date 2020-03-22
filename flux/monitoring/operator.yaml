@@ -29,8 +29,7 @@ spec:
     kubelet:
       enabled: true
       serviceMonitor:
-        scheme: http
-        port: http-metrics
+        https: false
 
     prometheusOperator:
       admissionWebhooks:

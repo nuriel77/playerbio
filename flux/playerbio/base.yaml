@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: playerbio
   namespace: playerbio
+  annotations:
+    fluxcd.io/automated: 'true'
 spec:
   helmVersion: v2
   releaseName: playerbio

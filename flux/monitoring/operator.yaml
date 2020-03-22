@@ -47,7 +47,9 @@ spec:
             cpu: 500m
             memory: 1Gi
         ruleNamespaceSelector: {}
-        serviceMonitorNamespaceSelector: {}
+        serviceMonitorNamespaceSelector:
+          matchNames:
+            - playerbio
         ruleSelectorNilUsesHelmValues: false
         ruleSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false

@@ -38,14 +38,12 @@ spec:
           enabled: false
       tlsProxy:
         enabled: false
-      kubeletService:
-        enabled: false
 
     prometheus:
       prometheusSpec:
         image:
           tag: v2.16.0
-        replicas: 1
+        replicas: 2
         resources:
           limits:
             cpu: 500m

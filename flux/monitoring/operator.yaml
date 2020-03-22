@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: prometheus-operator
   namespace: monitoring
+  annotations:
+    fluxcd.io/automated: 'true'
 spec:
   helmVersion: v2
   releaseName: prometheus-operator

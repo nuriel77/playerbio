@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: prometheus-operator
   namespace: monitoring
+  annotations:
+    fluxcd.io/automated: 'true'
 spec:
   helmVersion: v2
   releaseName: prometheus-operator
@@ -54,7 +56,7 @@ spec:
         ruleNamespaceSelector: {}
         serviceMonitorNamespaceSelector:
           matchNames:
-            - playerbio
+          - playerbio
         ruleSelectorNilUsesHelmValues: false
         ruleSelector: {}
         serviceMonitorSelectorNilUsesHelmValues: false

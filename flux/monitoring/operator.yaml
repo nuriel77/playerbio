@@ -38,6 +38,8 @@ spec:
           enabled: false
       tlsProxy:
         enabled: false
+      kubeletService:
+        enabled: false
 
     prometheus:
       prometheusSpec:

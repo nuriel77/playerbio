@@ -1,0 +1,1 @@
+{"jobID":"f844f3fd-30bf-2043-cb9d-504284e97721","spec":{"type":"policy","cause":{"Message":"","User":"Nuriel Shem-Tov \u003cnurielst@hotmail.com\u003e"},"spec":{"monitoring:helmrelease/prometheus-operator":{"add":{"automated":"true"},"remove":{}}}},"result":null}

@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   annotations:
     helm.fluxcd.io/antecedent: monitoring:helmrelease/prometheus-operator
+    k8s-sidecar-target-directory: /tmp/dashboards
   labels:
     app: prometheus-operator-grafana
     chart: prometheus-operator-8.12.3

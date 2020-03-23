@@ -5,9 +5,13 @@ metadata:
   name: playerbio-app
   labels:
     team: devops
+    k8s-apps: playerbio
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: playerbio
+  namespaceSelector:
+    matchNames:
+    - playerbio
   endpoints:
   - port: api

@@ -1,0 +1,17 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: sealed-secrets
+  namespace: kube-system
+spec:
+  helmVersion: v3
+  releaseName: sealed-secrets
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: sealed-secrets
+    version: 1.8.0
+  values:
+    image:
+      repository: quay.io/bitnami/sealed-secrets-controller
+      tag: v0.11.0
+      pullPolicy: IfNotPresent

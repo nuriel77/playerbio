@@ -139,7 +139,9 @@ spec:
         - hosts:
           - grafana.localhost
       admin:
-        existingSecret: "basic-auth"
+        existingSecret: "grafana-auth"
+          userKey: admin
+          passwordKey: password
       grafana.ini:
         server:
           root_url: https://grafana.localhost

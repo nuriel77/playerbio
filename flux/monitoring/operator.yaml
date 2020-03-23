@@ -138,6 +138,8 @@ spec:
         tls:
         - hosts:
           - grafana.localhost
+      admin:
+        existingSecret: "basic-auth"
       grafana.ini:
         server:
           root_url: https://grafana.localhost

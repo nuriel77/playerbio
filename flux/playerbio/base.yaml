@@ -18,13 +18,16 @@ spec:
     image:
       repository: nuriel77/playerbio
       tag: v0.1.2
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/instance
-              operator: In
-              values:
-              - playerbio
-          topologyKey: kubernetes.io/hostname
+   ### Enable if more than one nodes in the k8s cluster
+   ### and if number of nodes are equal to or greater
+   ### than the number of replicas.
+   # affinity:
+   #   podAntiAffinity:
+   #     requiredDuringSchedulingIgnoredDuringExecution:
+   #     - labelSelector:
+   #         matchExpressions:
+   #         - key: app.kubernetes.io/instance
+   #           operator: In
+   #           values:
+   #           - playerbio
+   #       topologyKey: kubernetes.io/hostname

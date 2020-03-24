@@ -11,6 +11,7 @@ spec:
     path: helm-chart/splunk-connect-for-kubernetes/charts/splunk-kubernetes-logging
     ref: release/1.4.0
   values:
+    logLevel: warn
     global:
       logLevel: info
       splunk:

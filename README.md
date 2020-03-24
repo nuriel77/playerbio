@@ -177,6 +177,20 @@ playerbio:deployment/playerbio                                        playerbio 
 playerbio:helmrelease/playerbio                                       chart-image                 nuriel77/playerbio:v0.1.2                          deployed  automated
 ```
 
+### Troubleshooting Flux
+
+Best view the logs to see what is going on:
+
+Watch flux's logs:
+```sh
+kubectl logs -n flux deploy/flux --tail 100 -f
+```
+
+The flux helm operator logs can offer ideas on why something isn't getting updated or deployed:
+```sh
+kubectl logs -lapp=helm-operator -c flux-helm-operator -n flux  --tail 1000 -f
+```
+
 ## Sealed Secrets
 
 Secrets have been added to the repository encrypted by Sealed Secrets. As an example see [flux/monitoring/secrets.yaml](flux/monitoring/secrets.yaml).

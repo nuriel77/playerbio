@@ -129,6 +129,5 @@ Secrets get autodeployed as part of flux and subsequently create the secrets on 
 
 # Monitoring
 
-As you can see in the repository flux will deploy the prometheus-operator. This has been configured with a `serviceMonitor` for player bio. As such, the `/metrics` path from player bio instances is being scraped by prometheus. The metrics are consumed by the grafana dashboard Player Bio. It is a mix of some of the erlang exposed metrics and kubernetes metrics
-
+As you can see in the repository flux will deploy the prometheus-operator. Player bio has been configured with a [serviceMonitor](flux/monitoring/serviceMonitor.yaml) in order for its `/metrics` path to be scraped by prometheus. The metrics are consumed by the grafana dashboard Player Bio. It is a mix of some of the erlang exposed metrics and kubernetes metrics
 

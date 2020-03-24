@@ -3,15 +3,16 @@
 *Table of contents*
 
 <!--ts-->
-   * [Overview](#overview)
-   * [Docker](#docker)
-     * [Build](#build)
-     * [Run](#run)
-     * [Docker Compose](#docker-compose)
-  * [GitOps](#gitops)
-     * [Helm](#helm)
-     * [Flux](#flux)
-     * [Sealed Secrets](#sealed-secrets)
+  * [Overview](#overview)
+  * [Docker](#docker)
+    * [Build](#build)
+    * [Run](#run)
+    * [Docker Compose](#docker-compose)
+ * [GitOps](#gitops)
+    * [Prerequisites](#prerequisites)
+    * [Helm](#helm)
+    * [Flux](#flux)
+    * [Sealed Secrets](#sealed-secrets)
   * [Monitoring](#monitoring)
 
 <!--te-->
@@ -58,6 +59,61 @@ docker-compose down
 ```
 
 # GitOps
+
+## Prerequisites
+
+### Helm
+
+This installation/repo assumes an already running k8s cluster (can also be minikube, microk8s, etc)
+
+* Helm should be installed (if via microk8s can use snap). Else see [helm install](https://helm.sh/docs/intro/install/)
+
+### Flux
+
+Install flux repository, crds and namespace:
+```sh
+$ helm repo add fluxcd https://charts.fluxcd.io && kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml && kubectl create ns flux
+```
+
+Configure Flux for the cluster for this repository:
+```sh
+helm upgrade -i flux fluxcd/flux \
+  --set git.url="git@github.com:nuriel77/playerbio.git" \
+  --set git.label="k8s-sync" \
+  --set git.branch="master" \
+  --set git.pollInterval="10s" \
+  --set registry.automationInterval="10m" \
+  --set registry.rps=50 \
+  --set registry.burst=10 \
+  --set syncGarbageCollection.enabled="true" \
+  --set syncGarbageCollection.dry="false" \
+  --set workers=2 \
+  --namespace flux
+```
+
+Install fluxctl, if via snap:
+```sh
+sudo snap install fluxctl --classic
+```
+
+Alternatively, to install from binary (and make sure `/usr/local/bin` is in your `PATH`):
+```sh
+wget -O /usr/local/bin/fluxctl https://github.com/fluxcd/flux/releases/download/1.18.0/fluxctl_linux_amd64 && chmod +x /usr/local/bin/fluxctl
+```
+
+Get the public ssh key of flux:
+```sh
+fluxctl identity --k8s-fwd-ns flux
+```
+And add it to the repository as a deploy key.
+
+### Sealed Secrets
+
+Install the binary:
+```sh
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.11.0/kubeseal-linux-amd64 -O /usr/local/bin/kubeseal && chmod +x /usr/local/bin/kubeseal
+```
+The rest is installed via flux automatically 
 
 ## Helm
 
@@ -126,6 +182,22 @@ playerbio:helmrelease/playerbio                                       chart-imag
 Secrets have been added to the repository encrypted by Sealed Secrets. As an example see [flux/monitoring/secrets.yaml](flux/monitoring/secrets.yaml).
 
 Secrets get autodeployed as part of flux and subsequently create the secrets on the k8s cluster to be consumed by resources (e.g. grafana's chart).
+
+Example generate encrypted secret:
+
+```sh
+kubectl create secret generic grafana-auth \
+    --from-literal=admin="someUser" \
+    --from-literal=password="verySecret1234" \
+    --namespace monitoring \
+    --dry-run \
+    --output json \
+    | kubeseal \
+        --controller-name sealed-secrets \
+        --format=yaml
+```
+Redirect the output into a file to commit to a repository.
+
 
 # Monitoring
 

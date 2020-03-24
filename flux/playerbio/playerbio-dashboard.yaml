@@ -271,7 +271,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Network output bytes",
+          "title": "Erlang: Network output bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -362,7 +362,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Network received bytes",
+          "title": "Erlang: Network received bytes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -627,7 +627,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Memory Total per Pod",
+          "title": "Erlang Memory Total per Pod",
           "tooltip": {
             "shared": true,
             "sort": 0,

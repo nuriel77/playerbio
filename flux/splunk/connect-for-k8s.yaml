@@ -12,7 +12,7 @@ spec:
     ref: release/1.4.0
   values:
     global:
-      logLevel: debug
+      logLevel: info
       splunk:
         hec:
           # Token via sealed-secrets created secret obj

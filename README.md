@@ -215,5 +215,21 @@ Redirect the output into a file to commit to a repository.
 
 # Monitoring
 
-As you can see in the repository flux will deploy the prometheus-operator. Player bio has been configured with a [serviceMonitor](flux/monitoring/serviceMonitor.yaml) in order for its `/metrics` path to be scraped by prometheus. The metrics are consumed by the grafana dashboard Player Bio. It is a mix of some of the erlang exposed metrics and kubernetes metrics
+As you can see in the repository flux will deploy the **prometheus-operator**; Player bio has been configured with a [serviceMonitor](flux/monitoring/serviceMonitor.yaml) in order for its `/metrics` path to be scraped by prometheus. The metrics are consumed by the grafana dashboard Player Bio. It is a mix of some of the erlang exposed metrics and kubernetes metrics
 
+Authentication password for Grafana (user `nuriel`):
+```sh
+kubectl get secret -nmonitoring grafana-auth -o jsonpath='{.data.password}' | base64 -d
+```
+
+# Splunk/Logging
+
+Splunk and splunk connector for Kubernetes are installed via flux.
+
+The connector's file is located in [flux/splunk/connect-for-k8s.yaml](flux/splunk/connect-for-k8s.yaml).
+
+
+To get user's `admin` password for the GUI run:
+```sh
+kubectl get secret -nsplunk splunk-s1-standalone-secrets -o jsonpath='{.data.password}' | base64 -d
+```

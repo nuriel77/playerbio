@@ -2,7 +2,15 @@ apiVersion: enterprise.splunk.com/v1alpha2
 kind: Standalone
 metadata:
   name: s1
+  namespace: splunk
 spec:
   storageClassName: ""
-  etcStorage: "0Gi"
-  varStorage: "0Gi"
+  etcStorage: "250Mi"
+  varStorage: "500Mi"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "250m"
+    limits:
+      memory: "500Mi"
+      cpu: "500m"

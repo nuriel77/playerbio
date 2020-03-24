@@ -2,3 +2,7 @@ apiVersion: enterprise.splunk.com/v1alpha2
 kind: Standalone
 metadata:
   name: s1
+spec:
+  storageClassName: ""
+  etcStorage: "0Gi"
+  varStorage: "0Gi"

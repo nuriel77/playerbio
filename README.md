@@ -14,7 +14,8 @@
     * [Flux](#flux)
     * [Sealed Secrets](#sealed-secrets)
   * [Monitoring](#monitoring)
-
+  * [Splunk](#splunk)
+  * [Token and Password Configuration](#token-and-password-configuration)
 <!--te-->
 
 # Overview
@@ -222,7 +223,7 @@ Authentication password for Grafana (user `nuriel`):
 kubectl get secret -nmonitoring grafana-auth -o jsonpath='{.data.password}' | base64 -d
 ```
 
-# Splunk/Logging
+# Splunk
 
 Splunk and splunk connector for Kubernetes are installed via flux.
 
@@ -231,5 +232,11 @@ The connector's file is located in [flux/splunk/connect-for-k8s.yaml](flux/splun
 
 To get user's `admin` password for the GUI run:
 ```sh
-kubectl get secret -nsplunk splunk-s1-standalone-secrets -o jsonpath='{.data.password}' | base64 -d
+kubectl get secret -nsplunk splunk-s1-standalone-secrets -o jsonpath='{.data.default\.yml}'| base64 -d | grep password | awk {'print $2'} | tr -d '"'
 ```
+
+## Token and Password Configuration
+
+By default the Splunk standalone is configured to auto-generate passwords and the HEC token. In order to allow an automated installation of the Splunk Connector, we need to know the generated HEC token.
+
+To solve this we provide the `default.yml` configuration to Splunk's standalone (mounted as secret). The secret is stored in the repository encrypted by sealed-secrets.

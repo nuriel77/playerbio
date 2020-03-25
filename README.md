@@ -247,6 +247,11 @@ To get user's `admin` password for the GUI run:
 kubectl get secret -nsplunk splunk-s1-standalone-secrets -o jsonpath='{.data.default\.yml}'| base64 -d | grep password | awk {'print $2'} | tr -d '"'
 ```
 
+The operator installs and works out-of-the-box on microk8s and minikube. Nevertheless, if you get access problems on the splunk-operator pod (view its logs) you can run (which would be okay for dev/testing environment):
+```sh
+kubectl create clusterrolebinding splunk-operator-admin --clusterrole=cluster-admin --serviceaccount=splunk-operator:splunk-operator
+```
+
 ## Token and Password Configuration
 
 By default the Splunk standalone is configured to auto-generate passwords and the HEC token. In order to allow an automated installation of the Splunk Connector, we need to know the generated HEC token.

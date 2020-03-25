@@ -91,6 +91,18 @@ helm upgrade -i flux fluxcd/flux \
   --set workers=2 \
   --namespace flux
 ```
+Note: there seems to be a problem with Helm `2.16.4`, if you have this version the suggestion is to downgrade to `2.16.3` [ref](https://github.com/fluxcd/flux/issues/2935#issuecomment-603698053)
+
+Install helm operator:
+
+```sh
+helm upgrade -i helm-operator fluxcd/helm-operator \
+  --set git.ssh.secretName=flux-git-deploy \
+  --set git.pollInterval="1m" \
+  --set git.timeout="1m" \
+  --set tillerSidecar.enabled="true" \
+  --namespace flux
+```
 
 Install fluxctl, if via snap:
 ```sh

@@ -235,6 +235,11 @@ Authentication password for Grafana (user `nuriel`):
 kubectl get secret -nmonitoring grafana-auth -o jsonpath='{.data.password}' | base64 -d
 ```
 
+This is how the player bio dashboard looks like:
+
+![grafana](imgs/playerbio_2.png)
+
+
 # Splunk
 
 Splunk and splunk connector for Kubernetes are installed via flux.
@@ -247,8 +252,17 @@ To get user's `admin` password for the GUI run:
 kubectl get secret -nsplunk splunk-s1-standalone-secrets -o jsonpath='{.data.default\.yml}'| base64 -d | grep password | awk {'print $2'} | tr -d '"'
 ```
 
+The operator installs and works out-of-the-box on microk8s and minikube. Nevertheless, if you get access problems on the splunk-operator pod (view its logs) you can run (which would be okay for dev/testing environment):
+```sh
+kubectl create clusterrolebinding splunk-operator-admin --clusterrole=cluster-admin --serviceaccount=splunk-operator:splunk-operator
+```
+
 ## Token and Password Configuration
 
 By default the Splunk standalone is configured to auto-generate passwords and the HEC token. In order to allow an automated installation of the Splunk Connector, we need to know the generated HEC token.
 
 To solve this we provide the `default.yml` configuration to Splunk's standalone (mounted as secret). The secret is stored in the repository encrypted by sealed-secrets.
+
+This is how the incoming logs look like in splunk standalone:
+
+![splunk](imgs/playerbio_1.png)

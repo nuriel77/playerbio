@@ -91,6 +91,8 @@ helm upgrade -i flux fluxcd/flux \
   --set workers=2 \
   --namespace flux
 ```
+Note: there seems to be a problem with Helm `2.16.4`, if you have this version the suggestion is to downgrade to `2.16.3` [ref](https://github.com/fluxcd/flux/issues/2935#issuecomment-603698053)
+
 
 Install fluxctl, if via snap:
 ```sh

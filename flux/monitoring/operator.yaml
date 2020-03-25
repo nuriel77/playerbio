@@ -46,10 +46,10 @@ spec:
         resources:
           limits:
             cpu: 500m
-            memory: 1Gi
+            memory: 750Mi
           requests:
             cpu: 500m
-            memory: 1Gi
+            memory: 750Mi
         ruleNamespaceSelector: {}
         serviceMonitorNamespaceSelector:
           matchNames:

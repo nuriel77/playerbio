@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns
+spec:
+  acme:
+    email: ssl-team@acme.com
+    privateKeySecretRef:
+      name: letsencrypt-dns
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        digitalocean:
+          tokenSecretRef:
+            key: access-token
+            name: digitalocean-dns

@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-internal
+spec:
+  acme:
+    email: ssl-team@acme.com
+    privateKeySecretRef:
+      name: letsencrypt-internal
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: nginx-internal
